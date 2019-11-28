@@ -1,0 +1,291 @@
+{% extends 'base.html' %} {% block title %} homepage {% endblock title %} {% block content %}
+<section id="main-content">
+    <section class="wrapper">
+        <!-- add Purchase-->
+        <div class="container-fluid">
+            <div class="card">
+                <h5 class="card-header h5">Add Purchase</h5>
+                <div class="card-body">
+                    <form>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group row">
+
+                                    <div class="col-sm-10">
+                                        <div class="row">
+                                            <div class="col-3">
+                                                <label for="colFormLabelSm">Manufacturer <i
+                                                        class="text-danger">*</i></label>
+                                            </div>
+                                            <div class="col-9 ">
+                                                <select name="" id="manufacturer_id" class="form-control pl-4">
+                                                    <option value="" selected disabled>Select Menufacturer</option>
+                                                    {% for manufacturer in manufacturer_name %}
+                                                    <option id="{{manufacturer.id}}">{{manufacturer.m_name}}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group row">
+                                    <div class="col-3">
+                                        <label for="colFormLabelSm">Purchase Date <i class="text-danger">*</i></label>
+                                    </div>
+                                    <div class="col-9">
+                                        <input type="date" id="myDate" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group row">
+                                    <div class="col-3">
+                                        <label for="colFormLabelSm">Invoice No <i class="text-danger">*</i></label>
+                                    </div>
+                                    <div class="col-9">
+                                        <input type="email" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group row">
+                                    <div class="col-3">
+                                        <label for="colFormLabelSm">Details</i></label>
+                                    </div>
+                                    <div class="col-9">
+                                        <input type="email" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group row">
+                                    <div class="col-3">
+                                        <label for="colFormLabelSm">payment Type <i class="text-danger">*</i></label>
+                                    </div>
+                                    <div class="col-9 ">
+                                        <select name="" id="" class="form-control pl-4 ">
+                                            <option value="" selected disabled>Select Payment type</option>
+
+                                            <option>Cash</option>
+                                            <option>Card</option>
+                                            <option>cash</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <table class="table table-bordered ">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Item Information <i class="text-danger ">*</i></th>
+                                    <th scope="col">Batch ID <i class="text-danger ">*</i></th>
+                                    <th scope="col">Expiry date <i class="text-danger ">*</i></th>
+                                    <th scope="col">Stock/Qnt</th>
+                                    <th scope="col">Quantity <i class="text-danger ">*</i> </th>
+                                    <th scope="col">Manufacturer Price <i class="text-danger ">*</i></th>
+                                    <th scope="col">Total</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <select name=" " id="load_medicine" class="form-control pl-4">
+                                            <option value=" " selected disabled>Select medicine</option>
+                                        </select>
+                                    </td>
+                                    <td><input type="text" class="form-control" /></td>
+                                    <td><input type="text" class="form-control" /></td>
+                                    <td><input type="text" class="form-control" /></td>
+                                    <td><input type="text" class="form-control" /></td>
+                                    <td><input type="text" class="form-control" /></td>
+                                    <td><input type="text" class="form-control" /></td>
+                                    <td><button class="btn btn-danger " value="delete ">delete</button></td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </form>
+                    <div class="row">
+                        <div class="col-6">
+                            <a href="#! " class="btn btn-primary mr-3 ">submit</a>
+                            <a href="#! " class="btn btn-success" id="add">Add</a>
+                        </div>
+                        <div class="col-6  text-right">
+                            <div class="d-inline">
+                                <a href="#! " class="btn btn-info">Total Price</a>
+                                <input type="text" name="" id="" class="" readonly>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        </div>
+
+        <!-- end add purchase-->
+    </section>
+
+    <script>
+
+        jQuery(document).ready(function () {
+            console.log('working js ')
+
+            var add_id = 1;
+            $('#add').click(function (event) {
+
+                var html = `<tr>
+                <td><input type="text" class="form-control input_text" id="itemInfo${add_id}"/>
+                <ul id="result${add_id}" class="list-group list-unstyled result"></ul>
+                </td>
+                <td><input type="text" class="form-control" id="batchID${add_id}" /></td>
+                <td><input type="text" class="form-control" id="expiryDate${add_id}" /></td>
+                <td><input type="text" class="form-control" id="stock${add_id}" /></td>
+                <td><input type="text" class="form-control" id="quantity${add_id}" /></td>
+                <td><input type="text" class="form-control" id="manufacturerPrice${add_id}" /></td>
+                <td><input type="text" class="form-control" id="Total${add_id}" /></td>
+                <td><button class="btn btn-danger" value="delete" id="deleteBtn">delete</button></td>
+                </tr>`
+                $('tbody').append(html)
+                add_id++;
+
+            });
+
+
+
+
+            // 
+
+            $('body').on('keyup change', '.input_text', function (e) {
+            
+                console.log('keysUP')
+                // var ids = $('.input_text').map(function () {
+                // return this.id;
+                //     })
+                //     console.log('ides',ids)
+//                 var idArray = [];
+                
+// $('.input_text').each(function () {
+//     idArray.push(this.id);
+// });
+// console.log('ides',idArray)
+// var itemifoId =""
+// for (var i=0; i<idArray.length; i++){
+//     itemifoId = idArray[0] 
+// }
+
+
+                var itemifoId = $('.input_text').attr('id')
+                var resultId = $('.result').attr('id')
+
+                console.log('item id ',itemifoId)
+                console.log('result id ',resultId)
+
+                var search = $(`#${itemifoId}`).val()
+                var expression = new RegExp(search, "i")
+                // ajax begin
+                var id = $('#manufacturer_id').find('option:selected').attr('id');
+                $.ajax({
+                    type: "GET",
+                    url: '/purchase/load_medicine/',
+                    data: {
+                        manufacturer_id: id,
+                    },
+
+                    success: function (data) {
+                        console.log("SUCCESS");
+                        console.log(data)
+                        $(`#${resultId}`).empty()
+                        var html = ``
+                        $.each(data.medicine_name, function (index, value) {
+
+                            if (value.medicine_name.search(expression) != -1) {
+                                html += `<a href=""><li class="text">${value.medicine_name}</li></a>`
+                            }
+                            else if (value.medicine_name.search(expression) === -1) {
+                                html += `<li class="">No items Found</li>`
+                                return false
+                            }
+                        });
+                        $(`#${resultId}`).append(html)
+
+                    },
+                });
+            });
+
+            // Mouseover 
+            $('body').on('click', '.text', function (e) {
+                var itemifoId = $('.input_text').attr('id')
+
+                var resultId = $('.result').attr('id')
+                var ulList = $(this).text()
+                $(`#${itemifoId}`).val(ulList)
+                $(`#${resultId}`).empty()
+                // console.log('info id is:', itemifoId)
+
+
+                e.preventDefault()
+            })
+
+
+
+
+
+
+
+            // delete 
+            $('body').on('click', '#deleteBtn', function (e) {
+                var parent = e.currentTarget.parentNode.parentNode;
+                parent.remove();
+            });
+
+
+
+            // adding medicine
+            $('body').on('change', '#manufacturer_id', function (e) {
+                //    console.log('changed',e.currentTarget)
+                var id = $('#manufacturer_id').find('option:selected').attr('id');
+
+                $.ajax({
+                    type: "GET",
+                    url: '/purchase/load_medicine/',
+                    data: {
+                        manufacturer_id: id
+                    },
+                    success: function (data) {
+                        console.log("SUCCESS");
+                        console.log(data)
+                        $('#load_medicine').empty()
+                        var html = ``
+                        $.each(data.medicine_name, function (index, value) {
+                            console.log('data is: ', value.medicine_name)
+                            html += `
+                                <option value=" ">${value.medicine_name}</option>
+                        `
+                        });
+
+                        $('#load_medicine').append(html)
+
+                    },
+                    failure: function (data) {
+                        console.log("FAIL");
+                    },
+
+                });
+
+            });
+
+
+
+            event.preventDefault()
+            // end ready
+        });
+
+    </script>
+    {% endblock content %}
